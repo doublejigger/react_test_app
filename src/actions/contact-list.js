@@ -1,9 +1,13 @@
+/*eslint no-console: "off"*/
 import Api from "../api/contacts";
 import Notie from "notie";
 import {
   routeToItem
 } from "./app";
 
+
+/**
+ */
 export const initReducer = () => {
   return {
     type: "ACTIVE_COMPONENT_SET_ITEM",
@@ -14,12 +18,17 @@ export const initReducer = () => {
   };
 };
 
+/**
+ */
 export const reducerReset = () => {
   return ({
     type: "USERS_LIST_REDUCER_RESET"
   });
 };
 
+/**
+ * @param  {object} filters
+ */
 export const setFilters = (filters) => {
   return dispatch => {
     dispatch({
@@ -30,6 +39,8 @@ export const setFilters = (filters) => {
   };
 };
 
+/**
+ */
 export const resetFilters = () => {
   return dispatch => {
     dispatch({
@@ -39,6 +50,9 @@ export const resetFilters = () => {
   };
 };
 
+/**
+ * @param  {object} pagination
+ */
 export const setPagination = (pagination) => {
   return dispatch => {
 
@@ -58,13 +72,19 @@ export const setPagination = (pagination) => {
       });
   };
 };
-
+/**
+ * @param  {integer} id
+ */
 export const setSelectionSingle = (id) => {
   return ({
     type: "CONTACT_LIST_SELECT_SINGLE",
     id
   });
 };
+
+/**
+ * @param  {string} selectionType
+ */
 export const setSelectionBulk = (selectionType) => {
   return ({
     type: "CONTACT_LIST_SELECT_BULK",
@@ -85,10 +105,11 @@ export const navigateToEditContactById = (itemId) => {
     }));
   };
 };
-//------------------------------------------------------------------------------
-// ------------------------------------------ LOAD ITEM LIST
-// ------------------------------------------------------------------------------
-// ------------------------------------------
+
+
+/**
+ * @param  {object} xhrPayload
+ */
 export const setItems = (xhrPayload) => {
   return ({
     type: "USERS_LOAD_LIST",
@@ -96,6 +117,9 @@ export const setItems = (xhrPayload) => {
   });
 };
 
+/**
+ * @param  {boolean} status
+ */
 export const setIsLoadingStatus = (status) => {
   return ({
     type: "USERS_LOAD_SET_IS_LOADING_STATUS",
@@ -103,6 +127,8 @@ export const setIsLoadingStatus = (status) => {
   });
 };
 
+/**
+ */
 export const loadContactList = () => {
   return (dispatch, getState) => {
     const state = getState();
@@ -134,6 +160,8 @@ export const loadContactList = () => {
   };
 };
 
+/**
+ */
 export const loadMore = () => {
   return (dispatch, getState) => {
     const state = getState(),
@@ -170,37 +198,20 @@ export const loadMore = () => {
       });
   };
 };
-
-//------------------------------------------------------------------------------
-// ------------------------------------------ CREATE NEW ITEM
-// ------------------------------------------------------------------------------
-// ------------------------------------------
+/**
+ */
 export const createNewItem = () => {
   return (dispatch) => {
     dispatch(routeToItem({
       model: "contacts",
       action: "new"
     }));
-
-    /*
-    Api
-      .createUser({user: {}})
-      .then(response => {
-        Notie.alert({type: "success", text: response.message, time: 1.5});
-        if (response.id) {
-          dispatch(routeToItem({
-            type: "users",
-            id: parseInt(response.id)
-          }))
-        }
-      })
-      .catch(error => {
-        console.error(error);
-        Notie.alert({type: "error", text: error.message, time: 3});
-      });*/
   };
 };
 
+/**
+ * @param  {integer} contactId
+ */
 export const deleteContact = (contactId) => {
   return (dispatch) => {
 
@@ -227,7 +238,8 @@ export const deleteContact = (contactId) => {
   };
 };
 
-
+/**
+ */
 export const deleteContactList = () => {
   return (dispatch, getState) => {
     let gotItems = getState().contact_list.items;

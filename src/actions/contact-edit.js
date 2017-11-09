@@ -1,3 +1,4 @@
+/*eslint no-console: "off"*/
 import Api from "../api/contacts";
 import Notie from "notie";
 import {routeToItem} from "./app";

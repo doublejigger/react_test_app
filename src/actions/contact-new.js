@@ -1,8 +1,12 @@
+/*eslint no-console: "off"*/
 import Api from "../api/contacts";
 import Notie from "notie";
-import {routeToItem} from "./app";
+import {
+  routeToItem
+} from "./app";
 
-
+/**
+ */
 export const initReducer = () => {
   return ({
     type: "ACTIVE_COMPONENT_SET_ITEM",
@@ -12,12 +16,17 @@ export const initReducer = () => {
   });
 };
 
+/**
+ */
 export const resetReducer = () => {
   return ({
     type: "CONTACT_NEW_REDUCER_RESET"
   });
 };
 
+/**
+ * @param  {object} payload
+ */
 const setItem = (payload) => {
   return ({
     type: "CONTACT_NEW_SET_ITEM",
@@ -30,7 +39,10 @@ const setItem = (payload) => {
  * @param  {} payload
  */
 export const setForm = (payload) => {
-  return ({type: "CONTACT_NEW_SET_FORM_DETAILS", payload});
+  return ({
+    type: "CONTACT_NEW_SET_FORM_DETAILS",
+    payload
+  });
 };
 
 /**
@@ -41,11 +53,14 @@ export const commitForm = (payload) => {
   return (dispatch) => {
     return dispatch(createNew(payload)).then((response) => {
       dispatch(setItem(response));
-      dispatch(routeToItem({model: "contacts", action: "list"}));
-      return(response);
+      dispatch(routeToItem({
+        model: "contacts",
+        action: "list"
+      }));
+      return (response);
     }).catch(err => {
       console.error(err);
-      return(err);
+      return (err);
     });
   };
 };
@@ -56,7 +71,10 @@ export const commitForm = (payload) => {
  */
 export const navigateToContactList = () => {
   return (dispatch) => {
-    return dispatch(routeToItem({model:"contacts", action:"list"}));
+    return dispatch(routeToItem({
+      model: "contacts",
+      action: "list"
+    }));
   };
 };
 
@@ -67,8 +85,12 @@ export const navigateToContactList = () => {
  */
 const createNew = (payload) => {
   return (dispatch, getState) => {
-    if (typeof payload === "undefined") { payload = getState().contact_new.contact; }
-    const xhrPayload = Object.assign({}, {contact: payload});
+    if (typeof payload === "undefined") {
+      payload = getState().contact_new.contact;
+    }
+    const xhrPayload = Object.assign({}, {
+      contact: payload
+    });
     const utcDateTime = (new Date()).toISOString().slice(0, 19);
     xhrPayload.contact.created_at = utcDateTime;
     xhrPayload.contact.updated_at = utcDateTime;
@@ -80,12 +102,20 @@ const createNew = (payload) => {
 
       })
       .then(response => {
-        Notie.alert({type: "success", text: "Contact created", time: 1.5});
+        Notie.alert({
+          type: "success",
+          text: "Contact created",
+          time: 1.5
+        });
         return (response);
       })
       .catch(error => {
         console.error(error);
-        Notie.alert({type: "error", text: error.message, time: 3});
+        Notie.alert({
+          type: "error",
+          text: error.message,
+          time: 3
+        });
         return (error);
       });
   };
@@ -111,8 +141,12 @@ export const loadCountryList = () => {
   return (dispatch) => {
 
     return Api.getCountryList().then(response => {
-      if (response == null) { throw new Error("There are no country data"); }
-      if (response.length < 1) { throw new Error("There are no country data"); }
+      if (response == null) {
+        throw new Error("There are no country data");
+      }
+      if (response.length < 1) {
+        throw new Error("There are no country data");
+      }
 
       const optionList = response.countryArray.map(x => {
         return {
@@ -127,7 +161,11 @@ export const loadCountryList = () => {
     }).catch(error => {
       console.log(error);
       dispatch(setOptionCountryList([]));
-      Notie.alert({type: "error", text: error.message, time: 3});
+      Notie.alert({
+        type: "error",
+        text: error.message,
+        time: 3
+      });
       return (error);
     });
   };
