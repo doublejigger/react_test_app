@@ -1,0 +1,91 @@
+@import (reference) 'functions.less';
+@contact_row_height: 64px;
+@checkbox_size: 12px;
+ul.contact-list-container {
+    .list-loader-container {
+        position: relative;
+        width: 100%;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        .list-loader-content {
+            background-color: #eee;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    li.list-group-item {
+        position: relative;
+        .clearfix(); //&:last-of-type { border-bottom: none }    
+        .checkbox-container {
+            position: relative;
+            float: left;
+            width: 22px;
+            height: @contact_row_height;
+            cursor: pointer;
+            input {
+                height: @checkbox_size;
+                width: @checkbox_size;
+                margin: 0;
+                padding: 0;
+                margin-top: ((@contact_row_height - @checkbox_size)/2);
+            }
+        }
+        .avatar-container {
+            float: left;
+            width: @contact_row_height;
+            height: 80px;
+            margin-right: 8px;
+            cursor: pointer;
+            .disable-text-select();
+            img {
+                margin-left: auto;
+                margin-right: auto;
+                &.thumb {
+                    width: 64px;
+                    height: 64px;
+                }
+                &.no-thumb {
+                    height: 64px;
+                }
+            }
+        }
+        h3 {
+            margin: 0;
+            margin-top: 2px;
+            margin-bottom: 6px;
+            padding-right: 24px;
+            font-size: 18px;
+            color: rgba(0, 0, 0, .8);
+            line-height: 1.13;
+            .text-truncate();
+        }
+        h4 {
+            margin: 0;
+            margin-bottom: 2px;
+            padding-right: 24px;
+            font-size: 13px;
+            color: rgba(0, 0, 0, .65);
+            .text-truncate();
+        }
+        h5 {
+            margin: 0;
+            padding-right: 24px;
+            font-size: 12px;
+            color: rgba(0, 0, 0, .45);
+            line-height: 1.5;
+            .text-truncate();
+        }
+        .opts-container {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            cursor: pointer;
+        }
+    }
+}
